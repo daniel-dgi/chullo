@@ -5,6 +5,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
+use Islandora\Chullo\FedoraApi;
 
 class SaveResourceTest extends \PHPUnit_Framework_TestCase {
 
@@ -41,12 +42,9 @@ class SaveResourceTest extends \PHPUnit_Framework_TestCase {
         $api = new FedoraApi($guzzle);
         $client = new Chullo($api);
 
-        // 409
-        $result = $client->createResource("");
-        $this->assertNull($result);
-
-        // 412
-        $result = $client->saveResource("");
-        $this->assertFalse($result);
+        foreach ($mock as $response) {
+            $result = $client->createResource("");
+            $this->assertFalse($result);
+        }
     }
 }

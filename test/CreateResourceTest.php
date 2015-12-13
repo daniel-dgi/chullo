@@ -5,6 +5,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
+use Islandora\Chullo\FedoraApi;
 
 class CreateResourceTest extends \PHPUnit_Framework_TestCase {
 
@@ -29,7 +30,6 @@ class CreateResourceTest extends \PHPUnit_Framework_TestCase {
     /**
      * @covers            Islandora\Fedora\Chullo::createResource
      * @uses              GuzzleHttp\Client
-     * @expectedException GuzzleHttp\Exception\ClientException
      */
     public function testReturnsNullOtherwise() {
         $mock = new MockHandler([

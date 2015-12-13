@@ -34,7 +34,7 @@ class Chullo implements IFedoraClient {
     protected $api; // IFedoraApi
 
     public function __construct(IFedoraApi $api) {
-        $this->api = api;
+        $this->api = $api;
     }
 
     static public function create($fedora_rest_url) {
@@ -63,7 +63,7 @@ class Chullo implements IFedoraClient {
     public function getResource($uri = "",
                                 $headers = [],
                                 $transaction = "") {
-        $response = $this->api>getResource(
+        $response = $this->api->getResource(
             $uri,
             $headers,
             $transaction
@@ -241,7 +241,7 @@ class Chullo implements IFedoraClient {
                                    $sparql = "",
                                    $headers = [],
                                    $transaction = "") {
-        $response = $this->api->modifyResoure(
+        $response = $this->api->modifyResource(
             $uri,
             $sparql,
             $headers,
@@ -261,7 +261,7 @@ class Chullo implements IFedoraClient {
      */
     public function deleteResource($uri,
                                    $transaction = "") {
-        $this->api->deleteResource(
+        $response = $this->api->deleteResource(
             $uri,
             $transaction
         );
@@ -287,7 +287,7 @@ class Chullo implements IFedoraClient {
             $transaction
         );
 
-        if ($response->getStatusCode != 201) {
+        if ($response->getStatusCode() != 201) {
             return null;
         }
 
@@ -314,7 +314,7 @@ class Chullo implements IFedoraClient {
             $transaction
         );
 
-        if ($response->getStatusCode != 201) {
+        if ($response->getStatusCode() != 201) {
             return null;
         }
 
