@@ -7,13 +7,15 @@ use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
 use Islandora\Chullo\FedoraApi;
 
-class SaveGraphTest extends \PHPUnit_Framework_TestCase {
+class SaveGraphTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Fedora\Chullo::saveGraph
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsTrueOn204() {
+    public function testReturnsTrueOn204()
+    {
         $mock = new MockHandler([
             new Response(204),
         ]);
@@ -31,7 +33,8 @@ class SaveGraphTest extends \PHPUnit_Framework_TestCase {
      * @covers            Islandora\Fedora\Chullo::saveGraph
      * @uses              GuzzleHttp\Client
      */
-    public function testReturnsFalseOtherwise() {
+    public function testReturnsFalseOtherwise()
+    {
         $mock = new MockHandler([
             new Response(412),
             new Response(409),
@@ -48,4 +51,3 @@ class SaveGraphTest extends \PHPUnit_Framework_TestCase {
         }
     }
 }
-

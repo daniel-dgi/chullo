@@ -7,13 +7,15 @@ use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
 use Islandora\Chullo\FedoraApi;
 
-class CopyResourceTest extends \PHPUnit_Framework_TestCase {
+class CopyResourceTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Fedora\Chullo::copyResource
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsUriOn201() {
+    public function testReturnsUriOn201()
+    {
         $mock = new MockHandler([
             new Response(201, ['Location' => "http://localhost:8080/fcrepo/rest/SOME_URI"]),
         ]);
@@ -23,7 +25,7 @@ class CopyResourceTest extends \PHPUnit_Framework_TestCase {
         $api = new FedoraApi($guzzle);
         $client = new Chullo($api);
 
-        $result = $client->copyResource("","");
+        $result = $client->copyResource("", "");
         $this->assertSame($result, "http://localhost:8080/fcrepo/rest/SOME_URI");
     }
 
@@ -31,7 +33,8 @@ class CopyResourceTest extends \PHPUnit_Framework_TestCase {
      * @covers            Islandora\Fedora\Chullo::copyResource
      * @uses              GuzzleHttp\Client
      */
-    public function testReturnsNullOtherwise() {
+    public function testReturnsNullOtherwise()
+    {
         $mock = new MockHandler([
             new Response(404),
             new Response(409),
@@ -44,7 +47,7 @@ class CopyResourceTest extends \PHPUnit_Framework_TestCase {
         $client = new Chullo($api);
 
         foreach ($mock as $response) {
-            $result = $client->copyResource("","");
+            $result = $client->copyResource("", "");
             $this->assertNull($result);
         }
     }

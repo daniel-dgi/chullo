@@ -22,7 +22,6 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-
 /**
  * Default implementation of IFedoraApi using Guzzle.
  *
@@ -32,15 +31,18 @@ use Symfony\Component\HttpFoundation\Response;
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GPL
  * @link     http://www.islandora.ca
  */
-class FedoraApi implements IFedoraApi {
+class FedoraApi implements IFedoraApi
+{
 
     protected $client;
 
-    public function __construct(Client $client) {
+    public function __construct(Client $client)
+    {
         $this->client = $client;
     }
 
-    static public function create($fedora_rest_url) {
+    public static function create($fedora_rest_url)
+    {
         $guzzle = new Client(['base_uri' => $fedora_rest_url]);
         return new FedoraApi($guzzle);
     }
@@ -50,7 +52,8 @@ class FedoraApi implements IFedoraApi {
      *
      * @return string
      */
-    public function getBaseUri() {
+    public function getBaseUri()
+    {
         return $this->client->getConfig('base_uri');
     }
 
@@ -63,9 +66,11 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function getResource($uri = "",
-                                $headers = [],
-                                $transaction = "") {
+    public function getResource(
+        $uri = "",
+        $headers = [],
+        $transaction = ""
+    ) {
         // Set headers
         $options = ['http_errors' => false, 'headers' => $headers];
 
@@ -88,8 +93,10 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function getResourceHeaders($uri = "",
-                                       $transaction = "") {
+    public function getResourceHeaders(
+        $uri = "",
+        $transaction = ""
+    ) {
 
         // Ensure uri takes transaction into account.
         $uri = $this->prepareUri($uri, $transaction);
@@ -109,7 +116,8 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function getResourceOptions($uri = "") {
+    public function getResourceOptions($uri = "")
+    {
         return $this->client->request(
             'OPTIONS',
             $uri,
@@ -128,11 +136,13 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function createResource($uri = "",
-                                   $content = null,
-                                   $headers = [],
-                                   $transaction = "",
-                                   $checksum = "") {
+    public function createResource(
+        $uri = "",
+        $content = null,
+        $headers = [],
+        $transaction = "",
+        $checksum = ""
+    ) {
 
         $options = ['http_errors' => false];
 
@@ -168,11 +178,13 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function saveResource($uri,
-                                 $content = null,
-                                 $headers = [],
-                                 $transaction = "",
-                                 $checksum = "") {
+    public function saveResource(
+        $uri,
+        $content = null,
+        $headers = [],
+        $transaction = "",
+        $checksum = ""
+    ) {
         $options = ['http_errors' => false];
 
         // Set content.
@@ -206,10 +218,12 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function modifyResource($uri,
-                                   $sparql = "",
-                                   $headers = [],
-                                   $transaction = "") {
+    public function modifyResource(
+        $uri,
+        $sparql = "",
+        $headers = [],
+        $transaction = ""
+    ) {
         $options = ['http_errors' => false];
 
         // Set content.
@@ -237,8 +251,10 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function deleteResource($uri,
-                                   $transaction = "") {
+    public function deleteResource(
+        $uri,
+        $transaction = ""
+    ) {
 
         $options = ['http_errors' => false];
 
@@ -252,7 +268,8 @@ class FedoraApi implements IFedoraApi {
         );
     }
 
-    protected function prepareUri($uri, $transaction = "") {
+    protected function prepareUri($uri, $transaction = "")
+    {
         $base_uri = rtrim($this->getBaseUri(), '/');
 
         if (empty($uri)) {
@@ -293,9 +310,11 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function copyResource($uri,
-                                 $destination,
-                                 $transaction = "") {
+    public function copyResource(
+        $uri,
+        $destination,
+        $transaction = ""
+    ) {
         // Ensure uri takes transaction into account.
         $uri = $this->prepareUri($uri, $transaction);
         // Create destinsation URI
@@ -309,9 +328,9 @@ class FedoraApi implements IFedoraApi {
             ],
         ];
         return $this->client->request(
-          'COPY',
-          $uri,
-          $options
+            'COPY',
+            $uri,
+            $options
         );
     }
 
@@ -324,9 +343,11 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function moveResource($uri,
-                                 $destination,
-                                 $transaction = "") {
+    public function moveResource(
+        $uri,
+        $destination,
+        $transaction = ""
+    ) {
         // Ensure uri takes transaction into account.
         $uri = $this->prepareUri($uri, $transaction);
         // Create destinsation URI
@@ -340,9 +361,9 @@ class FedoraApi implements IFedoraApi {
             ],
         ];
         return $this->client->request(
-          'MOVE',
-          $uri,
-          $options
+            'MOVE',
+            $uri,
+            $options
         );
     }
 
@@ -351,7 +372,8 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function createTransaction() {
+    public function createTransaction()
+    {
         // Create the transaction.
         return $this->createResource("fcr:tx");
     }
@@ -363,7 +385,8 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function extendTransaction($id) {
+    public function extendTransaction($id)
+    {
         $options = ['http_errors' => false];
         $uri = $this->generateTransactionUri($id);
         return $this->client->request(
@@ -380,7 +403,8 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function commitTransaction($id) {
+    public function commitTransaction($id)
+    {
         $options = ['http_errors' => false];
         $uri = $this->generateTransactionUri($id) . '/fcr:tx/fcr:commit';
         return $this->client->request(
@@ -397,7 +421,8 @@ class FedoraApi implements IFedoraApi {
      *
      * @return ResponseInterface
      */
-    public function rollbackTransaction($id) {
+    public function rollbackTransaction($id)
+    {
         $options = ['http_errors' => false];
         $uri = $this->generateTransactionUri($id) . '/fcr:tx/fcr:rollback';
         return $this->client->request(
@@ -407,9 +432,9 @@ class FedoraApi implements IFedoraApi {
         );
     }
 
-    protected function generateTransactionUri($id) {
+    protected function generateTransactionUri($id)
+    {
         $base = rtrim($this->getBaseUri(), '/');
         return $base . '/' . ltrim($id, '/');
     }
-
 }

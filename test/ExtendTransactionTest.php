@@ -7,13 +7,15 @@ use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
 use Islandora\Chullo\FedoraApi;
 
-class ExtendTransactionTest extends \PHPUnit_Framework_TestCase {
+class ExtendTransactionTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Fedora\Chullo::extendTransaction
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsTrueOn204() {
+    public function testReturnsTrueOn204()
+    {
         $mock = new MockHandler([
             new Response(204),
         ]);
@@ -31,7 +33,8 @@ class ExtendTransactionTest extends \PHPUnit_Framework_TestCase {
      * @covers            Islandora\Fedora\Chullo::extendTransaction
      * @uses              GuzzleHttp\Client
      */
-    public function testReturnsFalseOtherwise() {
+    public function testReturnsFalseOtherwise()
+    {
         $mock = new MockHandler([
             new Response(410),
         ]);
@@ -44,5 +47,4 @@ class ExtendTransactionTest extends \PHPUnit_Framework_TestCase {
         $result = $client->extendTransaction("tx:abc-123");
         $this->assertFalse($result);
     }
-
 }

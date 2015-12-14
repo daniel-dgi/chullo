@@ -38,9 +38,11 @@ interface IFedoraClient extends IFedoraApi
      *
      * @return EasyRdf_Graph
      */
-    public function getGraph($uri = "",
-                             $headers = [],
-                             $transaction = "");
+    public function getGraph(
+        $uri = "",
+        $headers = [],
+        $transaction = ""
+    );
 
     /**
      * Saves RDF in Fedora.
@@ -51,7 +53,9 @@ interface IFedoraClient extends IFedoraApi
      *
      * @return null
      */
-    public function saveGraph($uri,
-                              \EasyRdf_Graph $graph,
-                              $transaction = "");
+    public function saveGraph(
+        $uri,
+        \EasyRdf_Graph $graph,
+        $transaction = ""
+    );
 }

@@ -37,4 +37,3 @@ interface ITriplestoreClient
      */
     public function query($sparql);
 }
-

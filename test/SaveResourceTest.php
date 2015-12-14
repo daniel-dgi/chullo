@@ -7,13 +7,15 @@ use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
 use Islandora\Chullo\FedoraApi;
 
-class SaveResourceTest extends \PHPUnit_Framework_TestCase {
+class SaveResourceTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Fedora\Chullo::saveResource
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsTrueOn204() {
+    public function testReturnsTrueOn204()
+    {
         $mock = new MockHandler([
             new Response(204),
         ]);
@@ -31,7 +33,8 @@ class SaveResourceTest extends \PHPUnit_Framework_TestCase {
      * @covers            Islandora\Fedora\Chullo::saveResource
      * @uses              GuzzleHttp\Client
      */
-    public function testReturnsFalseOtherwise() {
+    public function testReturnsFalseOtherwise()
+    {
         $mock = new MockHandler([
             new Response(409),
             new Response(412),

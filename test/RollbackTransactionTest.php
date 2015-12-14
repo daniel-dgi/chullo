@@ -7,13 +7,15 @@ use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
 use Islandora\Chullo\FedoraApi;
 
-class RollbackTransactionTest extends \PHPUnit_Framework_TestCase {
+class RollbackTransactionTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Fedora\Chullo::rollbackTransaction
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsTrueOn204() {
+    public function testReturnsTrueOn204()
+    {
         $mock = new MockHandler([
             new Response(204),
         ]);
@@ -31,7 +33,8 @@ class RollbackTransactionTest extends \PHPUnit_Framework_TestCase {
      * @covers            Islandora\Fedora\Chullo::rollbackTransaction
      * @uses              GuzzleHttp\Client
      */
-    public function testReturnsFalseOtherwise() {
+    public function testReturnsFalseOtherwise()
+    {
         $mock = new MockHandler([
             new Response(410),
         ]);
@@ -44,5 +47,4 @@ class RollbackTransactionTest extends \PHPUnit_Framework_TestCase {
         $result = $client->rollbackTransaction("tx:abc-123");
         $this->assertFalse($result);
     }
-
 }

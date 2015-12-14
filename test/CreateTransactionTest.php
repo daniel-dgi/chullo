@@ -7,13 +7,15 @@ use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
 use Islandora\Chullo\FedoraApi;
 
-class CreateTransactionTest extends \PHPUnit_Framework_TestCase {
+class CreateTransactionTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Fedora\Chullo::createTransaction
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsIdOn201() {
+    public function testReturnsIdOn201()
+    {
         $mock = new MockHandler([
             new Response(201, ['Location' => "http://localhost:8080/fcrepo/rest/tx:abc-123"]),
         ]);

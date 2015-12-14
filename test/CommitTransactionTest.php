@@ -7,13 +7,15 @@ use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\Chullo;
 use Islandora\Chullo\FedoraApi;
 
-class CommitTransactionTest extends \PHPUnit_Framework_TestCase {
+class CommitTransactionTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Fedora\Chullo::commitTransaction
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsTrue204() {
+    public function testReturnsTrue204()
+    {
         $mock = new MockHandler([
             new Response(204),
         ]);
@@ -31,7 +33,8 @@ class CommitTransactionTest extends \PHPUnit_Framework_TestCase {
      * @covers            Islandora\Fedora\Chullo::commitTransaction
      * @uses              GuzzleHttp\Client
      */
-    public function testReturnsFalseOtherwise() {
+    public function testReturnsFalseOtherwise()
+    {
         $mock = new MockHandler([
             new Response(410),
         ]);
@@ -44,5 +47,4 @@ class CommitTransactionTest extends \PHPUnit_Framework_TestCase {
         $result = $client->commitTransaction("tx:abc-123");
         $this->assertFalse($result);
     }
-
 }

@@ -6,13 +6,15 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Islandora\Chullo\TriplestoreClient;
 
-class TriplestoreClientTest extends \PHPUnit_Framework_TestCase {
+class TriplestoreClientTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @covers  Islandora\Chullo\TriplestoreClient::query
      * @uses    GuzzleHttp\Client
      */
-    public function testReturnsResultsOn200() {
+    public function testReturnsResultsOn200()
+    {
         $mock_response = <<<EOD
             {
               "head" : {
@@ -46,7 +48,8 @@ EOD;
      * @uses              GuzzleHttp\Client
      * @expectedException GuzzleHttp\Exception\ClientException
      */
-    public function testThrowsExceptionOn400() {
+    public function testThrowsExceptionOn400()
+    {
         $mock = new MockHandler([
             new Response(400),
         ]);
@@ -57,6 +60,4 @@ EOD;
 
         $result = $client->query("");
     }
-
 }
-

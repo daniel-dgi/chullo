@@ -19,11 +19,13 @@ namespace Islandora\Chullo;
 
 use GuzzleHttp\Client;
 
-class TriplestoreClient implements ITriplestoreClient {
+class TriplestoreClient implements ITriplestoreClient
+{
 
     protected $guzzle;
 
-    public function __construct(Client $guzzle) {
+    public function __construct(Client $guzzle)
+    {
         $this->guzzle = $guzzle;
     }
 
@@ -34,7 +36,8 @@ class TriplestoreClient implements ITriplestoreClient {
      *
      * @return TriplestoreClient
      */
-    static public function create($sparql_endpoint) {
+    public static function create($sparql_endpoint)
+    {
         $guzzle = new Client(['base_uri' => $sparql_endpoint]);
         return new TriplestoreClient($guzzle);
     }
@@ -46,7 +49,8 @@ class TriplestoreClient implements ITriplestoreClient {
      *
      * @return EasyRdf_Sparql_Result    Results object
      */
-    public function query($sparql) {
+    public function query($sparql)
+    {
         $response = $this->guzzle->post("", [
             'query' => [
                 'format' => 'json',
@@ -57,4 +61,3 @@ class TriplestoreClient implements ITriplestoreClient {
         return new \EasyRdf_Sparql_Result($response->getBody(), 'application/sparql-results+json');
     }
 }
-
